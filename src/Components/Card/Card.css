@@ -1,0 +1,23 @@
+.box{
+    display: inline-block;
+    padding: 5px;
+}
+
+.product{
+    width: 250px;
+    height: 300px;
+    border: 2px solid black;
+    display: grid;
+    text-align: center;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+img{
+    margin: auto;
+}
+
+button{
+    width: 50px;
+    margin: auto;
+}
