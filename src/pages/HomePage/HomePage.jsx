@@ -1,16 +1,19 @@
-import Card from "../../Components/Card/Card"
-import './HomePage.css'
 
-function HomePage({product, addToCard}){
+import './HomePage.css'
+import Item from "../../Components/Item/Item"
+
+function HomePage({changePriceCount, cards, del, delAll}){
+    let clear = () => {
+        delAll()
+    }
     return(
         <div className="prods">
             {
-                product.map((elem) => {
-                    return(
-                        <Card key={elem.id} product={elem} addToCard={addToCard}/>
-                    )
+                cards.map((card) => {
+                    return <Item key={card.id} card={card} changePriceCount={changePriceCount} del={del}/>
                 })
             }
+            
         </div>
     )
 }

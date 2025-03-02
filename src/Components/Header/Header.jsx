@@ -1,14 +1,17 @@
-import {NavLink} from 'react-router-dom'
+import {NavLink, useLocation} from 'react-router-dom'
 import { MdLocalGroceryStore } from "react-icons/md"
 import './Header.css'
 
-function Header(){
+function Header({cards}){
     return(
         <nav>
-            <div>
+            <div className='cart'>
+                
                 <NavLink to='/card'>
                     <MdLocalGroceryStore />
+                    <sub>{cards.length}</sub>
                 </NavLink>
+                
             </div>
         </nav>
     )

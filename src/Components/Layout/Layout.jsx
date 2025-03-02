@@ -1,10 +1,10 @@
 import Header from '../Header/Header'
 import {Outlet} from 'react-router-dom'
 
-function Layout(){
+function Layout({cards}){
     return(
         <div>
-            <Header/>
+            <Header cards={cards}/>
             <Outlet/>
         </div>
     )

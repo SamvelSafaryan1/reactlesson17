@@ -1,13 +1,18 @@
 import './CardPage.css'
+import Card from '../../Components/Card/Card'
 
-function CardPage({card}){
+function CardPage({products, addToCard}){
     
     return(
         <div>
             {
-                card.map((cart) => {
+                products.map((product) => {
                     return(
-                        <li>{cart.title}</li>
+                        <Card 
+                            key={product.id}
+                            product={product}
+                            addToCard={addToCard}
+                        />
                     )
                 })
             }

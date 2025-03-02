@@ -7,7 +7,7 @@ import HomePage from './pages/HomePage/HomePage'
 
 function App() {
   let [products, setProducts] = useState([])
-  let [card, setCard] = useState([])
+  let [cards, setCards] = useState([])
 
   useEffect(() => {
     fetch('https://Fakestoreapi.com/products')
@@ -16,21 +16,66 @@ function App() {
       return{
         ...prod,
         count: 1,
-        price: prod.price
+        cardPrice: prod.price
       }
     })))
   }, [])
 
-  let addToCard = (item) => {
-    setCard([...card, item])
+  let changePriceCount = (count, id) => {
+    setCards(cards.map((card) => {
+      if(card.id === id){
+        return{
+          ...card,
+          count: count,
+          cardPrice: card.price * count
+        }
+      }
+      else{
+        return card
+      }
+    }))
   }
+
+  let del = (id) => {
+    setCards(cards.filter((elem) => elem.id !== id))
+  }
+
+  let addToCard = (item) => {
+    let boll = false
+
+    cards.forEach((card) => {
+      if(card.id === item.id){
+        boll = true
+        setCards(cards.map((elem) => {
+          if(elem.id === item.id){
+            return{
+              ...elem,
+              count: ++elem.count,
+              cardPrice: elem.cardPrice + elem.price
+            }
+          }
+          else{
+            return elem
+          }
+        }))
+      }
+    })
+
+    if(!boll){
+      setCards((prev) => {
+        return[...prev, item]
+      })
+    }
+  }
+
+  let delAll = () => {setCards([])}
 
   return(
     <div className="app">
       <Routes>
-        <Route path='/' element={<Layout/>}>
-          <Route index element={<HomePage product={products} addToCard={addToCard}/>}/>
-          <Route path='/card' element={<CardPage card={card}/>}/>
+        <Route path='/' element={<Layout cards={cards}/>}>
+          <Route index element={<HomePage cards={cards} changePriceCount={changePriceCount} del={del} delAll={delAll}/>}/>
+          <Route path='/card' element={<CardPage products={products} addToCard={addToCard}/>}/>
         </Route>
       </Routes>
     </div>
